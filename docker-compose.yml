@@ -1,0 +1,21 @@
+version:  "3.4"
+
+services:
+  app:
+    image: kougou/netflixanalyzer
+    container_name: webapp
+    restart: always
+    links:
+      - "mysqldb:mysql"
+    ports:
+      - "8501:8501"
+  mysqldb:
+    image:  mysql
+    container_name: db
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_DATABASE: netflix_db
+    ports:
+      - "33061:3306"
